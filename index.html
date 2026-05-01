@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEKOLAH MAP - Validasi Akurasi Koordinat</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="logo">🗺️ <span>SEKOLAH</span> MAP</div>
+    
+    <div class="header-stats">
+      <div class="stat-badge sma">SMA <span class="count">0</span></div>
+      <div class="stat-badge smp">SMP <span class="count">0</span></div>
+      <div class="stat-badge smk">SMK <span class="count">0</span></div>
+    </div>
+    
+    <div class="header-controls">
+      <input type="text" id="search-box" placeholder="Cari sekolah..." />
+      
+      <div class="filter-chips">
+        <button class="chip active sma" data-type="SMA">SMA</button>
+        <button class="chip active smp" data-type="SMP">SMP</button>
+        <button class="chip active smk" data-type="SMK">SMK</button>
+      </div>
+      
+      <button class="btn" onclick="verifyAll()">🔍 Verifikasi All</button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main id="main">
+    <!-- Map -->
+    <div id="map"></div>
+    
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <div class="sidebar-tabs">
+        <button class="tab-btn active" data-tab="list">Daftar</button>
+        <button class="tab-btn" data-tab="detail">Detail</button>
+        <button class="tab-btn" data-tab="export">Ekspor</button>
+      </div>
+      
+      <!-- List Panel -->
+      <div id="tab-list" class="tab-panel active">
+        <div id="school-list"></div>
+      </div>
+      
+      <!-- Detail Panel -->
+      <div id="tab-detail" class="tab-panel">
+        <div id="detail-panel">
+          <div class="detail-placeholder">
+            <div class="icon">🏫</div>
+            <div>Pilih sekolah dari daftar untuk melihat detail</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Export Panel -->
+      <div id="tab-export" class="tab-panel">
+        <div id="export-panel">
+          <div class="export-summary">
+            <div class="export-summary-title">📊 Ringkasan Data</div>
+            <div class="export-stat">
+              <span class="export-stat-label">Total Sekolah</span>
+              <span class="export-stat-val" id="exp-total">0</span>
+            </div>
+            <div class="export-stat">
+              <span class="export-stat-label">Sudah Dikoreksi</span>
+              <span class="export-stat-val" id="exp-edited">0</span>
+            </div>
+            <div class="export-stat">
+              <span class="export-stat-label">Terverifikasi</span>
+              <span class="export-stat-val" id="exp-verified">0</span>
+            </div>
+            <div class="export-stat">
+              <span class="export-stat-label">✅ Akurat</span>
+              <span class="export-stat-val" id="exp-good">0</span>
+            </div>
+            <div class="export-stat">
+              <span class="export-stat-label">⚠️ Kurang Akurat</span>
+              <span class="export-stat-val" id="exp-medium">0</span>
+            </div>
+            <div class="export-stat">
+              <span class="export-stat-label">❌ Tidak Akurat</span>
+              <span class="export-stat-val" id="exp-bad">0</span>
+            </div>
+          </div>
+          
+          <div class="export-options">
+            <div class="export-option" onclick="exportJSON()">
+              <div class="export-option-title">📥 Ekspor Semua (.json)</div>
+              <div class="export-option-desc">Simpan semua data sekolah dengan koreksi</div>
+            </div>
+            <div class="export-option" onclick="exportCorrOnly()">
+              <div class="export-option-title">📝 Ekspor Koreksi (.json)</div>
+              <div class="export-option-desc">Simpan hanya data yang dikoreksi</div>
+            </div>
+            <div class="export-option" onclick="exportCSV()">
+              <div class="export-option-title">📊 Ekspor CSV (.csv)</div>
+              <div class="export-option-desc">Format spreadsheet</div>
+            </div>
+            <div class="export-option" onclick="exportBadOnly()">
+              <div class="export-option-title">⚠️ Ekspor Bermasalah (.json)</div>
+              <div class="export-option-desc">Simpan koordinat kurang/tidak akurat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- App JS -->
+  <script src="app.js"></script>
+</body>
+</html>
