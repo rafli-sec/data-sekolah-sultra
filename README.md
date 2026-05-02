@@ -17,7 +17,7 @@ npm start
 Server akan berjalan di `http://localhost:3000`
 
 ## Endpoints
-
+https://data-sekolah-sultra-git-main-rafli-secs-projects.vercel.app/api
 | Method | Endpoint | Deskripsi |
 |-------|---------|-----------|
 | GET | `/api` | Info API dan stats |
@@ -28,6 +28,8 @@ Server akan berjalan di `http://localhost:3000`
 | GET | `/api/smk` | Sekolah SMK |
 | GET | `/api/kabupaten` | Daftar kabupaten |
 | GET | `/api/status` | Statussekolah (N/S) |
+| GET | `/api/database-sekolah` | Raw data seperti `data/database-sekolah.json` |
+| GET | `/api/database-sekolah.json` | Raw data seperti `data/database-sekolah.json` |
 
 ## Query Parameters
 

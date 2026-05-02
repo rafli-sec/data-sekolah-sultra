@@ -28,9 +28,11 @@ const smkData = loadData('smk.json');
 
 // Combine all data
 const allSchools = [...smpData, ...smaData, ...smkData];
+const databaseSekolah = loadData(path.join('data', 'database-sekolah.json'));
 
 console.log('Loaded: ' + smpData.length + ' SMP, ' + smaData.length + ' SMA, ' + smkData.length + ' SMK');
 console.log('Total schools: ' + allSchools.length);
+console.log('Loaded raw database-sekolah:', databaseSekolah.length, 'records');
 
 // Helper: filter schools based on query params
 const filterSchools = (schools, query) => {
@@ -170,6 +172,15 @@ app.get('/api/status', function(req, res) {
   });
 });
 
+// GET /api/database-sekolah - Raw sekolah data in same format as data/database-sekolah.json
+app.get(['/api/database-sekolah', '/api/database-sekolah.json'], function(req, res) {
+  try {
+    res.json(databaseSekolah);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 // Health check
 app.get('/api', function(req, res) {
   res.json({ 
@@ -183,7 +194,8 @@ app.get('/api', function(req, res) {
       'GET /api/smk - SMK schools only',
       'GET /api/kabupaten - List of kabupaten',
       'GET /api/kecamatan - List of kecamatan (optional: ?kabupaten_kota=...)',
-      'GET /api/status - Status options'
+      'GET /api/status - Status options',
+      'GET /api/database-sekolah - Raw data in same format as data/database-sekolah.json'
     ],
     filters: [
       '?bentuk=SMP|SMA|SMK - Filter by school type',
