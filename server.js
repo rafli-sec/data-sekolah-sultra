@@ -22,9 +22,9 @@ const loadData = (filename) => {
 };
 
 // Load all school data
-const smpData = loadData(path.join('data', 'smp.json'));
-const smaData = loadData(path.join('data', 'sma.json'));
-const smkData = loadData(path.join('data', 'smk.json'));
+const smpData = require('./data/smp.json');
+const smaData = require('./data/sma.json');
+const smkData = require('./data/smk.json');
 
 // Combine all data
 const allSchools = [...smpData, ...smaData, ...smkData];
