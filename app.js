@@ -574,3 +574,85 @@ function showToast(msg, type = 'info') {
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ── API Checker ───────────────────────────────
+async function fetchAPI() {
+  const endpoint = document.getElementById('api-endpoint').value;
+  const query = document.getElementById('api-query').value.trim();
+  const url = query ? `${endpoint}?${query}` : endpoint;
+  
+  const resultsEl = document.getElementById('api-results');
+  const countEl = document.getElementById('api-count');
+  
+  resultsEl.innerHTML = '<div style="text-align:center; padding:20px;">⏳ Loading...</div>';
+  countEl.textContent = 'Loading...';
+  
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const data = await response.json();
+    displayAPIResults(data, url);
+  } catch (error) {
+    resultsEl.innerHTML = `<div style="color:red; padding:20px;">❌ Error: ${error.message}</div>`;
+    countEl.textContent = 'Error';
+  }
+}
+
+function displayAPIResults(data, url) {
+  const resultsEl = document.getElementById('api-results');
+  const countEl = document.getElementById('api-count');
+  
+  let count = 0;
+  let html = `<div class="api-result-url">📡 ${url}</div>`;
+  
+  if (Array.isArray(data)) {
+    count = data.length;
+    html += `<div class="api-result-array">`;
+    data.slice(0, 50).forEach((item, i) => {
+      html += `<div class="api-result-item">
+        <div class="api-result-index">[${i}]</div>
+        <div class="api-result-content">${JSON.stringify(item, null, 2)}</div>
+      </div>`;
+    });
+    if (data.length > 50) {
+      html += `<div class="api-result-more">... and ${data.length - 50} more items</div>`;
+    }
+    html += `</div>`;
+  } else if (typeof data === 'object' && data !== null) {
+    if (data.data && Array.isArray(data.data)) {
+      count = data.data.length;
+      html += `<div class="api-result-meta">
+        <div>Success: ${data.success}</div>
+        <div>Total: ${data.total || count}</div>
+        <div>Page: ${data.page || 1}</div>
+        <div>Limit: ${data.limit || count}</div>
+      </div>`;
+      html += `<div class="api-result-array">`;
+      data.data.slice(0, 50).forEach((item, i) => {
+        html += `<div class="api-result-item">
+          <div class="api-result-index">[${i}]</div>
+          <div class="api-result-content">${JSON.stringify(item, null, 2)}</div>
+        </div>`;
+      });
+      if (data.data.length > 50) {
+        html += `<div class="api-result-more">... and ${data.data.length - 50} more items</div>`;
+      }
+      html += `</div>`;
+    } else {
+      count = 1;
+      html += `<div class="api-result-object">${JSON.stringify(data, null, 2)}</div>`;
+    }
+  } else {
+    count = 1;
+    html += `<div class="api-result-primitive">${JSON.stringify(data)}</div>`;
+  }
+  
+  resultsEl.innerHTML = html;
+  countEl.textContent = `${count} items`;
+}
+
+function clearAPIResults() {
+  document.getElementById('api-results').innerHTML = '<div style="text-align:center; padding:20px; color:#666;">No data fetched yet</div>';
+  document.getElementById('api-count').textContent = '0 items';
+}

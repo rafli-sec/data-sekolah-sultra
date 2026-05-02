@@ -46,6 +46,8 @@
         <button class="tab-btn active" data-tab="list">Daftar</button>
         <button class="tab-btn" data-tab="detail">Detail</button>
         <button class="tab-btn" data-tab="export">Ekspor</button>
+        <button class="tab-btn" data-tab="api">API</button>
+        <button class="tab-btn" data-tab="api">API</button>
       </div>
       
       <!-- List Panel -->
@@ -111,6 +113,46 @@
               <div class="export-option-title">⚠️ Ekspor Bermasalah (.json)</div>
               <div class="export-option-desc">Simpan koordinat kurang/tidak akurat</div>
             </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- API Panel -->
+      <div id="tab-api" class="tab-panel">
+        <div id="api-panel">
+          <div class="api-form">
+            <div class="api-form-title">🔍 API Data Checker</div>
+            
+            <div class="api-form-group">
+              <label for="api-endpoint">Endpoint:</label>
+              <select id="api-endpoint">
+                <option value="/api/database-sekolah">/api/database-sekolah</option>
+                <option value="/api/sekolah">/api/sekolah</option>
+                <option value="/api/smp">/api/smp</option>
+                <option value="/api/sma">/api/sma</option>
+                <option value="/api/smk">/api/smk</option>
+                <option value="/api/kabupaten">/api/kabupaten</option>
+                <option value="/api/status">/api/status</option>
+              </select>
+            </div>
+            
+            <div class="api-form-group">
+              <label for="api-query">Query Parameters:</label>
+              <input type="text" id="api-query" placeholder="bentuk=SMA&status=N&page=1&limit=10" />
+            </div>
+            
+            <div class="api-form-actions">
+              <button class="btn" onclick="fetchAPI()">📡 Fetch Data</button>
+              <button class="btn secondary" onclick="clearAPIResults()">🗑️ Clear</button>
+            </div>
+          </div>
+          
+          <div class="api-results">
+            <div class="api-results-header">
+              <span class="api-results-title">📋 Results</span>
+              <span class="api-results-count" id="api-count">0 items</span>
+            </div>
+            <div class="api-results-content" id="api-results"></div>
           </div>
         </div>
       </div>
