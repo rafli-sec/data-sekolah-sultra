@@ -133,6 +133,33 @@ app.get('/api/smk', function(req, res) {
   res.json(result);
 });
 
+// GET /api/data/smp - Raw SMP data from data/smp.json
+app.get('/api/data/smp', function(req, res) {
+  try {
+    res.json(smpData);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// GET /api/data/sma - Raw SMA data from data/sma.json
+app.get('/api/data/sma', function(req, res) {
+  try {
+    res.json(smaData);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// GET /api/data/smk - Raw SMK data from data/smk.json
+app.get('/api/data/smk', function(req, res) {
+  try {
+    res.json(smkData);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 // GET /api/kabupaten - Get all unique kabupaten
 app.get('/api/kabupaten', function(req, res) {
   try {
@@ -192,6 +219,9 @@ app.get('/api', function(req, res) {
       'GET /api/smp - SMP schools only',
       'GET /api/sma - SMA schools only',
       'GET /api/smk - SMK schools only',
+      'GET /api/data/smp - Raw SMP data from data/smp.json',
+      'GET /api/data/sma - Raw SMA data from data/sma.json',
+      'GET /api/data/smk - Raw SMK data from data/smk.json',
       'GET /api/kabupaten - List of kabupaten',
       'GET /api/kecamatan - List of kecamatan (optional: ?kabupaten_kota=...)',
       'GET /api/status - Status options',

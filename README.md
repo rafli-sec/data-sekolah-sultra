@@ -26,6 +26,9 @@ https://data-sekolah-sultra-git-main-rafli-secs-projects.vercel.app/api
 | GET | `/api/smp` | Sekolah SMP |
 | GET | `/api/sma` | Sekolah SMA |
 | GET | `/api/smk` | Sekolah SMK |
+| GET | `/api/data/smp` | Data mentah SMP dari `data/smp.json` |
+| GET | `/api/data/sma` | Data mentah SMA dari `data/sma.json` |
+| GET | `/api/data/smk` | Data mentah SMK dari `data/smk.json` |
 | GET | `/api/kabupaten` | Daftar kabupaten |
 | GET | `/api/status` | Statussekolah (N/S) |
 | GET | `/api/database-sekolah` | Raw data seperti `data/database-sekolah.json` |
