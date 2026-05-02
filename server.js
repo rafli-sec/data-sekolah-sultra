@@ -214,10 +214,14 @@ app.get('/api', function(req, res) {
   });
 });
 
-// Start server
-app.listen(PORT, function() {
-  console.log('========================================');
-  console.log('Server running on http://localhost:' + PORT);
-  console.log('API endpoint: http://localhost:' + PORT + '/api');
-  console.log('========================================');
-});
+// Start server when running locally
+if (require.main === module) {
+  app.listen(PORT, function() {
+    console.log('========================================');
+    console.log('Server running on http://localhost:' + PORT);
+    console.log('API endpoint: http://localhost:' + PORT + '/api');
+    console.log('========================================');
+  });
+}
+
+module.exports = app;
