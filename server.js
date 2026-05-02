@@ -22,9 +22,9 @@ const loadData = (filename) => {
 };
 
 // Load all school data
-const smpData = loadData('smp.json');
-const smaData = loadData('sma.json');
-const smkData = loadData('smk.json');
+const smpData = loadData(path.join('data', 'smp.json'));
+const smaData = loadData(path.join('data', 'sma.json'));
+const smkData = loadData(path.join('data', 'smk.json'));
 
 // Combine all data
 const allSchools = [...smpData, ...smaData, ...smkData];
