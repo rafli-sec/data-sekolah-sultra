@@ -28,7 +28,7 @@ const smkData = loadData('smk.json');
 
 // Combine all data
 const allSchools = [...smpData, ...smaData, ...smkData];
-const databaseSekolah = loadData(path.join('data', 'database-sekolah.json'));
+const databaseSekolah = require('./data/database-sekolah.json');
 
 console.log('Loaded: ' + smpData.length + ' SMP, ' + smaData.length + ' SMA, ' + smkData.length + ' SMK');
 console.log('Total schools: ' + allSchools.length);
